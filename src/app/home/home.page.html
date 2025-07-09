@@ -41,7 +41,7 @@
       <ion-row>
         @for (movie of movies; track movie.id) {
           <ion-col size="12" size-sm="6" size-md="4" size-lg="3">
-            <ion-card class="movie-card">
+            <ion-card class="movie-card" (click)="goToDetails(movie.id)">
               <ion-img [src]="imgBaseUrl + movie.poster_path" [alt]="movie.title"></ion-img>
               <ion-card-header>
                 <ion-card-title>{{ movie.title }}</ion-card-title>

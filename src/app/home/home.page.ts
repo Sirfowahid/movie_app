@@ -3,6 +3,7 @@ import { IonHeader, IonToolbar, IonTitle, IonContent,InfiniteScrollCustomEvent, 
 import {MoviesService} from '../services/movies.service';
 import { every, finalize } from 'rxjs';
 import { ApiResult, MovieResult } from '../services/interfaces';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,7 @@ import { ApiResult, MovieResult } from '../services/interfaces';
 })
 export class HomePage {
   private movieService = inject(MoviesService);
+  private router = inject(Router);
   private currentPage = 1;
   public error = null;
   public isLoading = false;
@@ -24,6 +26,9 @@ export class HomePage {
     this.loadMovies();
   }
 
+    goToDetails(id: number | string) {
+    this.router.navigate(['/details', id]);
+  }
 
   loadMovies(event?: InfiniteScrollCustomEvent) {
   this.error = null;

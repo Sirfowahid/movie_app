@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal, WritableSignal, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { MoviesService } from '../services/movies.service';
+import { MovieResult } from '../services/interfaces';
 
 @Component({
   selector: 'app-details',
@@ -11,10 +13,19 @@ import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/stan
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
 export class DetailsPage implements OnInit {
+  private movieService = inject(MoviesService);
+  public imageBaseUrl = 'https://image.tmdb.org/t/p/w500/';
+  public movie: WritableSignal<MovieResult | null> = signal(null);
 
-  constructor() { }
-
-  ngOnInit() {
+  @Input()
+  set id(movieId: string) {
+    this.movieService.getMovieDetails(movieId).subscribe((movie) => {
+      console.log(movie);
+      this.movie.set(movie);
+    });
   }
 
+  constructor() {}
+
+  ngOnInit() {}
 }
