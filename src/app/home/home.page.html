@@ -1,20 +1,65 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
+    <ion-title class="ion-text-center">
+      🎬 Movie App
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <!-- 🔄 Loading State -->
+  @if (isLoading) {
+    <ion-grid>
+      <ion-row>
+        @for (i of dummyMovies; track i) {
+          <ion-col size="12" size-sm="6" size-md="4" size-lg="3">
+            <ion-card class="movie-card loading">
+              <ion-img src=""></ion-img>
+              <ion-card-header>
+                <ion-card-title>Loading...</ion-card-title>
+              </ion-card-header>
+            </ion-card>
+          </ion-col>
+        }
+      </ion-row>
+    </ion-grid>
+  }
+
+  <!-- ❌ Error State -->
+  @else if (error) {
+    <ion-card color="danger">
+      <ion-card-content class="ion-text-center">
+        {{ error }}
+      </ion-card-content>
+    </ion-card>
+  }
+
+  <!-- ✅ Movie Grid -->
+  @else {
+    <ion-grid>
+      <ion-row>
+        @for (movie of movies; track movie.id) {
+          <ion-col size="12" size-sm="6" size-md="4" size-lg="3">
+            <ion-card class="movie-card">
+              <ion-img [src]="imgBaseUrl + movie.poster_path" [alt]="movie.title"></ion-img>
+              <ion-card-header>
+                <ion-card-title>{{ movie.title }}</ion-card-title>
+                <ion-card-subtitle>{{ movie.release_date }}</ion-card-subtitle>
+              </ion-card-header>
+            </ion-card>
+          </ion-col>
+        }
+      </ion-row>
+    </ion-grid>
+  }
+
+  <!-- 🔁 Infinite Scroll -->
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMovies($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="crescent"
+      loadingText="Loading more movies...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
 </ion-content>
