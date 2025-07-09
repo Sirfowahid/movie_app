@@ -1,13 +1,113 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>details</ion-title>
+    <ion-title class="ion-text-center ion-text-wrap">
+      {{ movie()?.title }}
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">details</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding detail-page">
+  @if (movie(); as movie) {
+    <ion-grid class="ion-padding-horizontal ion-justify-content-center" fixed>
+      <ion-row class="ion-align-items-center ion-justify-content-center ion-margin-bottom">
+
+        <!-- 🎞 Poster -->
+        <ion-col size="12" size-md="4" class="ion-text-center ion-margin-bottom">
+          <ion-img
+            [src]="imageBaseUrl + movie.poster_path"
+            [alt]="movie.title"
+            class="ion-border-radius ion-shadow"
+            style="max-width: 100%; height: auto;"
+          ></ion-img>
+        </ion-col>
+
+        <!-- 🧾 Movie Details -->
+        <ion-col size="12" size-md="7" class="ion-padding-start ion-padding-end">
+          <h1 class="ion-margin-top">{{ movie.title }}</h1>
+          <p class="ion-text-italic ion-margin-vertical" style="font-size: 1.1rem; color: var(--ion-color-medium);">
+            “{{ movie.tagline }}”
+          </p>
+
+          <ion-list lines="none">
+            <ion-item>
+              <ion-label><strong>Original Title:</strong></ion-label>
+              <ion-text>{{ movie.original_title }}</ion-text>
+            </ion-item>
+
+            <ion-item>
+              <ion-label><strong>Language:</strong></ion-label>
+              <ion-text>{{ movie.original_language.toUpperCase() }}</ion-text>
+            </ion-item>
+
+            <ion-item>
+              <ion-label><strong>Release Date:</strong></ion-label>
+              <ion-text>📅 {{ movie.release_date }}</ion-text>
+            </ion-item>
+
+            <ion-item>
+              <ion-label><strong>Runtime:</strong></ion-label>
+              <ion-text>⏱ {{ movie.runtime }} mins</ion-text>
+            </ion-item>
+
+            <ion-item>
+              <ion-label><strong>Rating:</strong></ion-label>
+              <ion-text>⭐ {{ movie.vote_average.toFixed(1) }} ({{ movie.vote_count }} votes)</ion-text>
+            </ion-item>
+
+            <ion-item>
+              <ion-label><strong>Popularity:</strong></ion-label>
+              <ion-text>🔥 {{ movie.popularity }}</ion-text>
+            </ion-item>
+
+            <ion-item>
+              <ion-label><strong>Status:</strong></ion-label>
+              <ion-text>{{ movie.status }}</ion-text>
+            </ion-item>
+
+            <ion-item lines="none">
+              <ion-label><strong>Homepage:</strong></ion-label>
+              <ion-text>
+                <a [href]="movie.homepage" target="_blank" rel="noopener" class="ion-text-primary">
+                  Visit
+                </a>
+              </ion-text>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <!-- Overview -->
+<ion-card class=" ion-margin-horizontal ion-shadow ion-padding-horizontal">
+  <ion-card-header>
+    <ion-card-title>📝 Overview</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <p style="white-space: pre-wrap;">{{ movie.overview }}</p>
+  </ion-card-content>
+</ion-card>
+
+<!-- Production Companies -->
+<ion-card class=" ion-margin-horizontal ion-shadow ion-padding-horizontal">
+  <ion-card-header>
+    <ion-card-title>🏭 Production Companies</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-list lines="full">
+      <ion-item *ngFor="let company of movie.production_companies">
+        <ion-avatar slot="start" *ngIf="company.logo_path" style="--size: 40px;">
+          <img [src]="imageBaseUrl + company.logo_path" [alt]="company.name" />
+        </ion-avatar>
+        <ion-label>
+          <h3>{{ company.name }}</h3>
+          <p class="ion-text-uppercase ion-text-muted" style="font-size: 0.8rem;">
+            {{ company.origin_country }}
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>
+
+  }
 </ion-content>

@@ -1,53 +1,30 @@
-#container {
-  text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+.poster-img-large {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
+.movie-info-text {
+  font-size: 1rem;
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
-}
-
-.movie-card {
-  overflow: hidden;
-  border-radius: 12px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-
-  &:hover {
-    transform: scale(1.05);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
   }
 
-  ion-img {
-    height: 350px;
-    object-fit: cover;
-    transition: transform 0.4s ease-in-out;
+  .tagline {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 1rem;
   }
 
-  &:hover ion-img {
-    transform: scale(1.1);
-  }
-
-  ion-card-header {
-    text-align: center;
+  @media screen and (min-width: 768px) {
+    h1 {
+      font-size: 2.5rem;
+    }
+    font-size: 1.2rem;
   }
 }

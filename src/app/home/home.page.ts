@@ -1,5 +1,5 @@
 import { Component,inject } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent,InfiniteScrollCustomEvent, IonList, IonItem, IonText, IonAvatar, IonInfiniteScroll, IonInfiniteScrollContent, IonGrid, IonRow, IonCol, IonCard, IonImg, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent,InfiniteScrollCustomEvent, IonList, IonItem, IonText, IonAvatar, IonInfiniteScroll, IonInfiniteScrollContent, IonGrid, IonRow, IonCol, IonCard, IonImg, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonChip, IonIcon, IonLabel } from '@ionic/angular/standalone';
 import {MoviesService} from '../services/movies.service';
 import { every, finalize } from 'rxjs';
 import { ApiResult, MovieResult } from '../services/interfaces';
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent,IonList,IonItem,IonText,IonAvatar,IonInfiniteScroll,IonInfiniteScrollContent,IonGrid,IonRow,IonCol,IonCard,IonImg,IonCardHeader,IonCardTitle,IonCardSubtitle,IonCardContent],
+  imports: [ IonHeader, IonToolbar, IonTitle, IonContent,IonInfiniteScroll,IonInfiniteScrollContent,IonGrid,IonRow,IonCol,IonCard,IonImg,IonCardHeader,IonCardTitle,IonCardSubtitle,IonCardContent, IonChip,IonIcon,IonLabel],
 })
 export class HomePage {
   private movieService = inject(MoviesService);
@@ -20,6 +20,7 @@ export class HomePage {
   public movies:MovieResult[] = [];
   public imgBaseUrl = 'https://image.tmdb.org/t/p/w500/';
   public dummyMovies = new Array(5);
+  hoveredMovieId: number | null = null;
 
 
   constructor() {

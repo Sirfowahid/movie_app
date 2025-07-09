@@ -1,7 +1,7 @@
 import { Component, OnInit, signal, WritableSignal, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonAvatar, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonImg, IonItem, IonLabel, IonList, IonRow, IonSpinner, IonSplitPane, IonText, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { MoviesService } from '../services/movies.service';
 import { MovieResult } from '../services/interfaces';
 
@@ -10,7 +10,7 @@ import { MovieResult } from '../services/interfaces';
   templateUrl: './details.page.html',
   styleUrls: ['./details.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar,IonImg, CommonModule, FormsModule,IonCardHeader,IonCardTitle,IonCardContent,IonGrid,IonCard, IonRow,IonCol,IonList,IonAvatar,IonLabel,IonItem, IonText,]
 })
 export class DetailsPage implements OnInit {
   private movieService = inject(MoviesService);

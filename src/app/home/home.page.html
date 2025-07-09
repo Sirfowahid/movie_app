@@ -10,55 +10,66 @@
 
   <!-- 🔄 Loading State -->
   @if (isLoading) {
-    <ion-grid>
-      <ion-row>
-        @for (i of dummyMovies; track i) {
-          <ion-col size="12" size-sm="6" size-md="4" size-lg="3">
-            <ion-card class="movie-card loading">
-              <ion-img src=""></ion-img>
-              <ion-card-header>
-                <ion-card-title>Loading...</ion-card-title>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-        }
-      </ion-row>
-    </ion-grid>
+  <ion-grid>
+    <ion-row>
+      @for (i of dummyMovies; track i) {
+      <ion-col size="12" size-sm="6" size-md="4" size-lg="3">
+        <ion-card class="movie-card loading ion-margin">
+          <ion-img src=""></ion-img>
+          <ion-card-header>
+            <ion-card-title>Loading...</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+      }
+    </ion-row>
+  </ion-grid>
   }
 
   <!-- ❌ Error State -->
   @else if (error) {
-    <ion-card color="danger">
-      <ion-card-content class="ion-text-center">
-        {{ error }}
-      </ion-card-content>
-    </ion-card>
+  <ion-card color="danger" class="ion-margin">
+    <ion-card-content class="ion-text-center">
+      {{ error }}
+    </ion-card-content>
+  </ion-card>
   }
 
   <!-- ✅ Movie Grid -->
   @else {
-    <ion-grid>
-      <ion-row>
-        @for (movie of movies; track movie.id) {
-          <ion-col size="12" size-sm="6" size-md="4" size-lg="3">
-            <ion-card class="movie-card" (click)="goToDetails(movie.id)">
-              <ion-img [src]="imgBaseUrl + movie.poster_path" [alt]="movie.title"></ion-img>
-              <ion-card-header>
-                <ion-card-title>{{ movie.title }}</ion-card-title>
-                <ion-card-subtitle>{{ movie.release_date }}</ion-card-subtitle>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-        }
-      </ion-row>
-    </ion-grid>
+  <ion-grid>
+    <ion-row>
+      @for (movie of movies; track movie.id) {
+      <ion-col size="12" size-sm="6" size-md="4" size-lg="3">
+        <ion-card class="movie-card ion-margin ion-no-padding" (click)="goToDetails(movie.id)"
+          (mouseenter)="hoveredMovieId = movie.id" (mouseleave)="hoveredMovieId = null"
+          [class.ion-shadow]="hoveredMovieId === movie.id"
+          [style.transform]="hoveredMovieId === movie.id ? 'scale(1.03)' : 'scale(1)'"
+          style="transition: transform 0.3s ease;">
+          <ion-img [src]="imgBaseUrl + movie.poster_path" [alt]="movie.title" class="ion-padding-top">
+          </ion-img>
+          <ion-card-header class="ion-text-center">
+            <ion-card-title class="ion-text-wrap" style="font-weight: 700; font-size: 1.25rem;">
+              {{ movie.title }}
+            </ion-card-title>
+
+            <ion-card-subtitle>
+              {{ movie.release_date }} &bull; {{ movie.original_language.toUpperCase() }} &bull; {{ movie.vote_average.toFixed(1) }}
+             
+            </ion-card-subtitle>
+
+          </ion-card-header>
+
+        </ion-card>
+      </ion-col>
+      }
+    </ion-row>
+  </ion-grid>
   }
 
   <!-- 🔁 Infinite Scroll -->
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMovies($event)">
-    <ion-infinite-scroll-content
-      loadingSpinner="crescent"
-      loadingText="Loading more movies...">
+    <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Loading more movies...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
